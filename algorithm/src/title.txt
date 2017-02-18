@@ -1,0 +1,6 @@
+chap17. partial sum
+
+chap18. linear data structure
+
+chap19.Queue,Stack, Dequeue
+

@@ -1,5 +1,6 @@
 package chap17.partialsum.baekjoon.prob2;
 
+import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -11,7 +12,8 @@ public class Try4 {
 	
 	public static void main(String[] args) throws Exception {		
 		/**		input 	*/
-		Scanner sc = new Scanner(System.in);		
+		Scanner sc = new Scanner(new FileInputStream("input.txt"));
+		//Scanner sc = new Scanner(System.in);		
 		N = sc.nextInt();
 		K = sc.nextInt();
 
@@ -44,6 +46,7 @@ public class Try4 {
 		}
 		/** output */
 		System.out.println(ret);
+		sc.close();
 	}	
 }
 

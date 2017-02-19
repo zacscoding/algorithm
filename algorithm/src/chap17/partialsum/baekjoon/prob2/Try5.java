@@ -16,11 +16,11 @@ public class Try5 {
 		N = sc.nextInt();
 		K = sc.nextInt();
 		
-		map = new HashMap<>(N + 10, 0.999999f);
+		map = new HashMap<>();
 
 		long psum = 0L;
 		map.put(psum, 1);
-		int ret = 0;
+		long ret = 0;
 		for (int i = 1; i <= N; i++) {
 			// psum 구하기
 			int seq = sc.nextInt();
@@ -39,7 +39,6 @@ public class Try5 {
 				newVal += curCount;
 
 			map.put(psum, newVal);
-
 		}
 		/** output */
 		System.out.println(ret);

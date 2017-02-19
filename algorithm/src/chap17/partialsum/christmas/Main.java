@@ -52,8 +52,7 @@ public class Main {
 	}
 		
 	//0번 상자부터 i번 상자까지의 범위 내에서 서로 겹치지 않고 구매할 수 있는 부분 구간의 최대 수
-	public static int maxBuys() {
-		
+	public static int maxBuys() {		
 		// ret[i] = 첫 번째 상자부터 i 번째 상자까지 고려했을 때 살 수 있는 최대 개수
 		int[] ret = new int[N+1];
 		// prev[s] = modpsum[]이 s였던 마지막 위치
@@ -66,13 +65,12 @@ public class Main {
 			else
 				ret[i] = 0;
 			// modpsum[i]를 전에도 본 적이 있으면, prev[psum[i]]+1 부터 여기까지 쭉 사기
-			int loc = prev[modpsum[i]];
+			int loc = prev[modpsum[i]]; //가장 마지막 상자 선택
 			if(loc != 0)
 				ret[i] = Math.max(ret[i],ret[loc]+1);
 			// prev[]에 현재 위치 기록
 			prev[modpsum[i]] = i;
 		}		
-		
 		return ret[N];		
 	}
 }

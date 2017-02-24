@@ -12,7 +12,7 @@ public class KMPAlgorithm {
 	
 	public static void main(String[] args) {
 		
-		String H = "aabadaabacd";
+		String H = "aabadaabacd";                                                                                                                                                                                                                                   
 		String N = "aabaabac";
 		
 		List<Integer> idxList = kmpSearch(H,N);
@@ -24,10 +24,9 @@ public class KMPAlgorithm {
 	//'짚더미' H의 부분 문자열로 '바늘' N이 출현하는 시작 위치들을 모두 반환
 	public static List<Integer> kmpSearch(String H, String N) {
 		int n = H.length(), m = N.length();
-		List<Integer> ret = new ArrayList<>(n-m+1); //max check : m-n+1 == [0,m-n-1]
+		List<Integer> ret = new ArrayList<>(n-m+1); //max check : m-n+1 <--[0,m-n-1] 여유1
 		
-		// pi[i] = N[..i]의 접미사도 되고 접두사도 되는 문자열의 최대 길이
-		
+		// pi[i] = N[..i]의 접미사도 되고 접두사도 되는 문자열의 최대 길이		
 		int[] pi = getPartialMatch(N);
 		
 		//begin = matched = 0 부터 시작

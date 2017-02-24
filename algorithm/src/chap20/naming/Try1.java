@@ -1,5 +1,6 @@
 package chap20.naming;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,8 +12,8 @@ import java.util.Scanner;
 public class Try1 {
 	public static String pre,suf;
     public static void main(String[] args) throws Exception {
-    	//Scanner sc = new Scanner(new FileInputStream("input.txt"));	
-        Scanner sc = new Scanner(System.in);
+    	Scanner sc = new Scanner(new FileInputStream("input.txt"));	
+        //Scanner sc = new Scanner(System.in);
         
         String input = new StringBuilder()
         		.append(sc.next()).append(sc.next()).toString();                	

@@ -55,6 +55,32 @@ public class KMPAlgorithm {
 		return ret;
 	}
 	
+	public static List<Integer> kmpSearch2(String H,String N) {
+		int n = H.length(), m = N.length();
+		List<Integer> ret = new ArrayList<>();
+		int[] pi = getPartialMatch(N);
+		
+		//현재 대응된 글자 수
+		int matched = 0;
+		//짚더미의 각 글자를 순회
+		for(int i=0;i<n;i++) {
+			//matched번 글자와 짚더미의 해당 글자가 불일치할 경우,
+			//현재 대응된 글자의 수를 pi[matched-1]로 줄인다.
+			while(matched>0 && H.charAt(i) != N.charAt(matched))
+				matched = pi[matched-1];
+			//글자가 대응될 경우
+			if(H.charAt(i) == N.charAt(matched)) {
+				matched ++;
+				if(matched == m) {
+					ret.add(i-m+1);
+					matched = pi[matched-1];
+				}
+			}			
+		}
+		return ret;
+	}
+	
+	
 	/*
 	 * 시간 복잡도
 	 * if문 : begin+matched는 절대 감소X.(matched가 감소해도 begin은 ++됨)

@@ -3,7 +3,17 @@ package chap20;
 import java.util.Arrays;
 import java.util.Comparator;
 
+
+/*
+ * http://lifeignite.tistory.com/13
+ * 핵심 --> group[a] == group[b]
+ * ==> [a...a+t),[b...a+t) 가 같다는 의미
+ * ==>  [a+t...a+2t)와 [b+t...b+2t)만 비교하면됨
+ * ==>  == group[a+t] compare group[b+t]
+ */
+
 public class Suffix implements Comparator<Integer> {
+	
 	
 	public static void main(String[] args) {
 		String str = "mississipi";
@@ -26,7 +36,7 @@ public class Suffix implements Comparator<Integer> {
 		// t=1 일 때는 정렬할 것 없이 S[i..]의 첫 글자로 그룹 번호를 정해 줘도 같은 효과가 있다.
 		int temp = this.t = 1;
 		group = new int[n+1];
-		for(int i=0;i<n;i++) {
+		for(int i=0;i<n;i++) { //idx==0인 글자를 기준으로 그룹 나눔
 			group[i] = s.charAt(i);
 		}		
 		group[n] = -1;		
@@ -35,6 +45,7 @@ public class Suffix implements Comparator<Integer> {
 		for(int i=0;i<perm.length;i++) {
 			perm[i] = i;
 		}
+		
 		
 		while(t < n) {
 			//group[]은 첫 t글자를 기준으로 계산해 뒀다.
@@ -48,7 +59,7 @@ public class Suffix implements Comparator<Integer> {
 			//2t글자를 기준으로 한 그룹 정보를 만든다
 			int[] newGroup = new int[n+1];
 			newGroup[n] = -1;
-			newGroup[perm[0]] = 0;
+			newGroup[perm[0]] = 0; //가장 앞서는 애의 그룹 번호 0으로 부여
 			
 			for(int i=1;i<n;i++) {
 				//이전 perm[i]의 그룹 번호와 비교
@@ -71,7 +82,8 @@ public class Suffix implements Comparator<Integer> {
 		//첫 t글자가 다르면 이들을 이용해서 비교
 		if(group[a] != group[b])
 			return group[a] - group[b];
-		//아니라면 S[a+t..]와 S[b+t..]의 첫 t글자를 비교		
+		//아니라면 S[a+t..]와 S[b+t..]의 첫 t글자(==[a+1,a+t]와 [b+1,b+t]를 비교 )
+		//그룹 번호가 같으면 t까지는 같은 상태. t+1...2t까지 비교하기 위해 기존 그룹 이용
 		return group[a+t] - group[b+t];		
 	}
 	

@@ -10,11 +10,9 @@ import java.util.List;
  */
 public class KMPAlgorithm {
 	
-	public static void main(String[] args) {
-		
+	public static void main(String[] args) {		
 		String H = "aabadaabacd";                                                                                                                                                                                                                                   
-		String N = "aabaabac";
-		
+		String N = "aabaabac";		
 		List<Integer> idxList = kmpSearch(H,N);
 		for(int i=0;i<idxList.size(); i++) {
 			System.out.println(idxList.get(i));
@@ -107,8 +105,7 @@ public class KMPAlgorithm {
 				if(N.charAt(begin + i) != N.charAt(i))
 					break;
 				//i+1 글자가 서로 대응
-				pi[begin + i] = Math.max(pi[begin+i],i+1); //현재보다 왼쪽에 있는 시작 위치에서 이 위치에
-															//값을 갱신했을지도 모르므로 
+				pi[begin + i] = Math.max(pi[begin+i],i+1); //현재보다 왼쪽에 있는 시작 위치에서 이 위치에 값을 갱신했을지도 모르므로															
 			}
 		}
 		return pi;

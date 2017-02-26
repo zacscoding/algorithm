@@ -3,6 +3,7 @@ package chap20.suffixarray.prob4;
 import java.util.Scanner;
 
 /*
+not yet clear
 https://www.acmicpc.net/problem/13275
  */
 public class Main {

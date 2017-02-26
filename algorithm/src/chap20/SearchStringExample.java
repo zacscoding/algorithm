@@ -41,7 +41,4 @@ public class SearchStringExample {
 		 * ==> O(|H|x|N|)
 		 */
 	}
-	
-	
-
 }

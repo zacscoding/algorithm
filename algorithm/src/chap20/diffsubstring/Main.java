@@ -1,21 +1,13 @@
-package chap20.suffixarray.prob2;
-
-/*
- 
- Clear
- https://www.acmicpc.net/problem/11478
- 
- */
+package chap20.diffsubstring;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Scanner;
 
 
-public class Main {	
-	public static void main(String[] args) {	
-		Scanner sc = new Scanner(System.in);		
-		String str = sc.next();		
+public class Main {
+	
+	public static void main(String[] args) {
+		String str = "banana";
 		System.out.println(constSubstrings(str));
 	}
 	
@@ -31,7 +23,8 @@ public class Main {
 	public static int constSubstrings(String s) {
 		Integer[] a = new Suffix().getSuffixArray(s);
 		int n = s.length();		
-		int ret = n - a[0];		
+		int ret = n - a[0];
+		
 		for(int i=1; i<a.length;i++) {
 			int cp = commonPrefix(s,a[i-1],a[i]);
 			ret += (n - a[i] - cp);

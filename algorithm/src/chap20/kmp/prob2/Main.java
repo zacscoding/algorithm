@@ -6,6 +6,10 @@ https://www.acmicpc.net/problem/4354
  */
 import java.util.Scanner;
 
+/*
+Clear
+https://www.acmicpc.net/problem/4354
+ */
 public class Main {
    public static void main(String[] args) throws Exception {
     	Scanner sc = new Scanner(new FileInputStream("input.txt"));

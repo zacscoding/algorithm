@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 /*
 
-https://www.acmicpc.net/problem/13013
+https://www.acmicpc.net/problem/9248
 
  */
 public class Try1 {

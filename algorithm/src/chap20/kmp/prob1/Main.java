@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.util.Scanner;
 
 /*
+Clear
 https://www.acmicpc.net/problem/2902
  */
 public class Main {

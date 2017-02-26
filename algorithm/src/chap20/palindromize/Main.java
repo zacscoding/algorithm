@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.util.Scanner;
 
 /*
+Clear
 https://algospot.com/judge/problem/read/PALINDROMIZE
  */
 public class Main {

@@ -3,79 +3,82 @@ package chap20.suffixarray.prob3;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Scanner;
-
-public class Main {
-	public static char[] chArr;
-	public static int[][] cache;
-
-	public static void main(String[] args) throws Exception {
-		/* input */
+/*
+ not yet clear
+ https://www.acmicpc.net/problem/9248
+ */
+public class Main {	
+	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		chArr = sc.next().toCharArray();
-		cache = new int[chArr.length][];
-		for (int i = 0; i < chArr.length; i++) {
-			cache[i] = new int[chArr.length];
+		String str = sc.next();
+		
+		Integer[] suffix = new Suffix().getSuffixArray(str);
+		for(int i=0;i<suffix.length;i++) {		
+			System.out.print((suffix[i]+1)+" ");
 		}
-
-		/* outupt */
-		Integer[] suffix = new Integer[chArr.length];
-		for (int i = 0; i < suffix.length; i++) {
-			suffix[i] = i;
-		}
-
-		Arrays.sort(suffix, new Comparator<Integer>() {
-			@Override
-			public int compare(Integer o1, Integer o2) {
-				if (cache[o1][o2] != 0) {
-					int sameLen = cache[o1][o2];
-					if (sameLen == -1)
-						sameLen = 0;
-					return chArr[o1 + sameLen] - chArr[o2 + sameLen];
-				}
-
-				int len = (o1 > o2) ? chArr.length - o1 : chArr.length - o2;
-				int result = 0;
-				int ret = 0;
-				for (int i = 0; i < len; i++) {
-					if (chArr[o1 + i] == chArr[o2 + i]) {
-						result++;
-					} else {
-						ret = chArr[o1 + i] - chArr[o2 + i];
-						break;
-					}
-				}
-				int cacheVal = (result == 0) ? -1 : result;
-				cache[o1][o2] = cacheVal;
-				cache[o2][o1] = cacheVal;
-				if (ret == 0)
-					ret = (o1 > o2) ? -1 : 1;
-				return ret;
-			}
-		});
-
-		for (int i = 0; i < suffix.length; i++)
-			System.out.print((suffix[i] + 1) + " ");
 		System.out.print("\nx ");
-		for (int i = 0; i < suffix.length - 1; i++) {
-			int val = cache[suffix[i]][suffix[i + 1]];
-			if (val == 0) {
-				val = countSame(suffix[i], suffix[i + 1]);
-			} else if (val == -1) {
-				val = 0;
-			}
-			System.out.print(val + " ");
+		for(int i=1;i<suffix.length;i++) {
+			System.out.print(commonPrefix(str,suffix[i-1],suffix[i])+" ");
 		}
+		
+		sc.close();		
+	}
+	
+	public static int commonPrefix(String s,int i,int j) {
+		int k = 0;
+		int size = s.length();
+		while( i<size && j<size && (s.charAt(i) == s.charAt(j)) ) {
+			i++; j++; k++;
+		}
+		return k;
 	}
 
-	public static int countSame(int i, int j) {
-		int len = i > j ? chArr.length - i : chArr.length - j;
-		int ret = 0;
-		for (int k = 0; k < len; k++) {
-			if (chArr[i + k] == chArr[j + k])
-				ret++;
-			else
-				break;
+	
+	public static class Suffix implements Comparator<Integer> {
+		int t;
+		int[] group;
+		public Integer[] getSuffixArray(String s) {
+			int n = s.length();		
+			int temp = this.t = 1;
+			group = new int[n+1];
+			for(int i=0;i<n;i++) { //idx==0인 글자를 기준으로 그룹 나눔
+				group[i] = s.charAt(i);
+			}		
+			group[n] = -1;		
+			Integer[] perm = new Integer[n];		
+			for(int i=0;i<perm.length;i++) {
+				perm[i] = i;
+			}
+			
+			
+			while(t < n) {
+				Arrays.sort(perm,this);			
+				temp *=2;
+				if(temp>=n)
+					break;
+				
+				int[] newGroup = new int[n+1];
+				newGroup[n] = -1;
+				newGroup[perm[0]] = 0;
+				
+				for(int i=1;i<n;i++) {
+					if(compare(perm[i-1],perm[i])<0) //다르면
+						newGroup[perm[i]] = newGroup[perm[i-1]]+1;
+					else //같으면
+						newGroup[perm[i]] = newGroup[perm[i-1]];				
+				}
+				group = newGroup;
+				this.t = temp;
+			}		
+			return perm;		
 		}
-		return ret;
+		
+		@Override
+		public int compare(Integer a, Integer b) {		
+			if(group[a] != group[b])
+				return group[a] - group[b];
+			return group[a+t] - group[b+t];		
+		}
+		
 	}
 }

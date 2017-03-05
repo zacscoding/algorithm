@@ -1,37 +1,44 @@
-package chap22.binarytree.prob3;
+/*package chap22.binarytree.prob3;
 
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
-
-public class Main {
+class Node {
+	int key;
+	Node left;
+	Node right;
 	
+	public Node(int key) {
+		this.key = key;
+	}
+	
+}
+
+public class Try1 {
+	static int C;
 	static int N;
 	
 	public static void main(String[] args) throws Exception {
 		Reader.init(System.in);
-		TreeMap<Integer,Integer> map = new TreeMap<>();
 		N = Reader.nextInt();
 		
-		map.put(0, 0);
-		map.put(N+1, 0);
-		
-		long count = 0;
-		for(int i=0;i<N;i++) {
-			int val = Reader.nextInt();
-			int m = 0;
-			Integer higher = map.higherKey(val);
-			Integer lower = map.lowerKey(val);
-			
-			m = Math.max(map.get(higher),map.get(lower));
-			
-			map.put(val, m+1);
-			count+=m;
-			System.out.println(count);
-			
+		System.out.println(C);
+		Node root = new Node(Reader.nextInt());				
+		for(int i=1;i<N;i++) {
+			insert(Reader.nextInt(),root);
+			System.out.println(C);
 		}
-		
-		
+	}
+	
+	public static void insert(int x,Node n) {
+		C++;		
+		if(x < n.key) {
+			if(n.left == null) n.left = new Node(x);
+			else insert(x,n.left);
+		} else {
+			if(n.right == null) n.right = new Node(x);
+			else insert(x,n.right);
+		}
 	}
 	
 	
@@ -58,7 +65,15 @@ public class Main {
 		
 		public static int nextInt() throws IOException {
 			return Integer.parseInt( next() );
-		}	
-	}	
+		}
+		
+		public static void close() throws IOException {
+			if(reader != null)
+				reader.close();
+		}
+		
+	}
+	
 
 }
+*/

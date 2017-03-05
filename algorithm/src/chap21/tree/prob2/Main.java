@@ -4,30 +4,33 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-	static List<List<Integer>> adj = new ArrayList<>(100000);	
+	static List<Integer>[] adj = new LinkedList[100000];	
 	static int n;
 	static int[] parent;
 	
 	public static void main(String[] args) throws Exception {
-		Reader.init(System.in);		
-		n = Reader.nextInt();		
-		parent = new int[n];		
+		Reader.init(System.in);	
+		
+		n = Reader.nextInt();
+		
+		parent = new int[n];
+		
 		for(int i=0;i<n;i++) {
 			parent[i] = -1;
 		}
-		
+				
 		for(int i=0;i<n-1;i++) {			
 			int a = Reader.nextInt();
 			int b = Reader.nextInt();
-			List<Integer> adj1 = adj.get(a-1);
-			List<Integer> adj2 = adj.get(a-1);
+			List<Integer> adj1 = adj[a-1];
+			List<Integer> adj2 = adj[b-1];
 			if(adj1 == null) {
 				adj1 = new LinkedList<>();
-				adj.set(a-1,adj1);
+				adj[a-1] = adj1;
 			}
 			if(adj2 == null) {
 				adj2 = new LinkedList<>();
-				adj.set(b-1,adj2);
+				adj[b-1] = adj2;
 			}			
 			adj1.add(b-1);
 			adj2.add(a-1);			
@@ -40,13 +43,18 @@ public class Main {
 	}
 	
 	public static void dfs(int here) {
-		List<Integer> adjList = adj.get(here);
-		for(int i=0;i<adjList.size();i++) {
-			if(parent[i] == -1) {
-				parent[i] = here;
-				dfs(i);
+		List<Integer> adjList = adj[here];
+		
+		if(adjList == null)
+			return;
+		
+		for(int there : adjList) {
+			if(parent[there]==-1) {
+				parent[there] = here;
+				dfs(there);
 			}
 		}
+		
 	}
 	
 	

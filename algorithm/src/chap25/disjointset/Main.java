@@ -1,4 +1,4 @@
-package chap25;
+package chap25.disjointset;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +46,8 @@ class OptimizedDisjointSet {
 	}
 	
 	// u가 속한 트리의 루트의 번호를 반환
+	// 압축 최적화, find(u)를 호출하면, u에서 루트까지 올라가는
+	// 경로 상에 있는 모든 노드들에도 경로 압축 최적화가 자동으로 수행
 	public int find(int u) {
 		if(u == parent.get(u)) 
 			return u;

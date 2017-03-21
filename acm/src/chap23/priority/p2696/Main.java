@@ -1,4 +1,4 @@
-package chap21.tree.priority.p2696;
+package chap23.priority.p2696;
 
 import java.io.*;
 import java.util.*;

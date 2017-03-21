@@ -1,8 +1,15 @@
+package chap25.disjointset.p10775;
+/*
+https://www.acmicpc.net/problem/10775
+ */
+
+
 import java.io.*;
 import java.util.*;
 
-public class Main {	
-	public static void main(String[] args) throws Exception {		
+
+public class Main {
+	public static void main(String[] args) throws Exception {
 		Reader.init(System.in);
 		
 		

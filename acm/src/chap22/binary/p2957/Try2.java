@@ -1,4 +1,4 @@
-package chap21.tree.binary.p2957;
+package chap22.binary.p2957;
 
 import java.io.*;
 import java.util.*;

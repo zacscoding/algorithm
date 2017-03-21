@@ -1,4 +1,4 @@
-package chap21.tree.priority.p2014;
+package chap23.priority.p2014;
 
 import java.util.*;
 

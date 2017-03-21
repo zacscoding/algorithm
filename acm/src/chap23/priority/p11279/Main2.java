@@ -1,44 +1,35 @@
-package chap21.tree.binary.p2957;
+package chap23.priority.p11279;
 
 import java.io.*;
 import java.util.*;
 
-/*
 
-https://www.acmicpc.net/problem/2957
- 
- */
-public class Main {
-	
+public class Main2 {
 	static int N;
 	
 	public static void main(String[] args) throws Exception {
 		Reader.init(System.in);
-		TreeMap<Integer,Integer> map = new TreeMap<>();
-		N = Reader.nextInt();
 		
-		map.put(0, 0);
-		map.put(N+1, 0);
+		N = Reader.nextInt();		
+		/*PriorityQueue<Integer> que = new PriorityQueue<Integer>(N, new Comparator<Integer>(){
+			@Override
+			public int compare(Integer o1, Integer o2) {
+				return o2-o1;
+			}			
+		});*/
 		
-		long count = 0;
+		PriorityQueue<Integer> que = new PriorityQueue<Integer>(N,Collections.reverseOrder());
+		
 		for(int i=0;i<N;i++) {
 			int val = Reader.nextInt();
-			int m = 0;
-			Integer higher = map.higherKey(val);
-			Integer lower = map.lowerKey(val);
-			
-			m = Math.max(map.get(higher),map.get(lower));
-			
-			map.put(val, m+1);
-			count+=m;
-			System.out.println(count);
-			
-		}
-		
-		
+			if(val == 0) {
+				int res = que.isEmpty() ? 0 : que.poll();
+				System.out.println(res);
+			} else {
+				que.offer(val);
+			}
+		}		
 	}
-	
-	
 	
 	static class Reader {
 		static BufferedReader reader;
@@ -64,5 +55,4 @@ public class Main {
 			return Integer.parseInt( next() );
 		}	
 	}	
-
 }

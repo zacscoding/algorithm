@@ -1,42 +1,47 @@
-package chap21.tree.priority.p11286;
+package chap22.binary.p2957;
+/*package chap22.binarytree.prob3;
 
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
-public class Main {
-	public static int N;
-	public static PriorityQueue<Integer> que; 
+class Node {
+	int key;
+	Node left;
+	Node right;
+	
+	public Node(int key) {
+		this.key = key;
+	}
+	
+}
+
+public class Try1 {
+	static int C;
+	static int N;
 	
 	public static void main(String[] args) throws Exception {
 		Reader.init(System.in);
-		
-		que = new PriorityQueue<Integer>(100000, new Comparator<Integer>() {
-			@Override
-			public int compare(Integer val1, Integer val2) {
-				int comp = Math.abs(val1) - Math.abs(val2);
-				if(comp == 0) {
-					if(val1 < 0)
-						return -1;
-					else 
-						return 1;
-				}
-				return comp;					
-			}			
-		});		
 		N = Reader.nextInt();
 		
-		for(int i=0;i<N;i++) {
-			int val = Reader.nextInt();
-			if(val == 0) {
-				if(que.isEmpty())
-					System.out.println(0);
-				else
-					System.out.println(que.poll());
-			} else {
-				que.offer(val);
-			}
-		}		
+		System.out.println(C);
+		Node root = new Node(Reader.nextInt());				
+		for(int i=1;i<N;i++) {
+			insert(Reader.nextInt(),root);
+			System.out.println(C);
+		}
 	}
+	
+	public static void insert(int x,Node n) {
+		C++;		
+		if(x < n.key) {
+			if(n.left == null) n.left = new Node(x);
+			else insert(x,n.left);
+		} else {
+			if(n.right == null) n.right = new Node(x);
+			else insert(x,n.right);
+		}
+	}
+	
 	
 	
 	static class Reader {
@@ -69,4 +74,7 @@ public class Main {
 		}
 		
 	}
+	
+
 }
+*/

@@ -12,8 +12,33 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		Reader.init(System.in);
 		
-		
-		
+		int G = Reader.nextInt();
+		int P = Reader.nextInt();		
+		int[] g = new int[P+1];		
+		boolean[] comp = new boolean[G+1];
+		boolean isPossible = true;
+		int count = 0;
+		for(int i=0; i<P; i++) {
+			if(isPossible) {
+				g[i] = Reader.nextInt();
+				for(int j=i; j>=0; j--) {
+					if(j == 0) {
+						isPossible=false;
+						break;
+					}
+					
+					if(comp[j]) {
+						comp[j] = true;
+						count++;
+						break;
+					}					
+				}	
+				
+			} else {
+				Reader.nextInt();
+			}			
+		}		
+		System.out.println(count);
 		
 	}
 	

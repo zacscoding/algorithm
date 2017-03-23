@@ -19,30 +19,31 @@ public class Main {
 		
 		n = Reader.nextInt();
 		m = Reader.nextInt();
+		
 		for(int i=0;i<=n;i++) {
 			parent[i] = i;
 			rank[i] = 1;
 		}		
-		for(int i=0; i<m; i++) {
-			int adj = Reader.nextInt();
-			int u = Reader.nextInt();
-			int v = Reader.nextInt();
-			if(adj == 1) {
-				union(u,v);				
+		
+		for(int i=1; i<=n; i++) {
+			for(int j=1; j<=n; j++) {
+				int val = Reader.nextInt();
+				if(j > i && val == 1)
+					union(i,j);	
 			}
 		}
 		
-		int parent = find(Reader.nextInt());
-		boolean isPossible = false;		
-		for(int i=1;i<=m;i++) {
-			if(i == m) {
-				isPossible = true;
+		
+		boolean isPossible = true;		
+		int prev = Reader.nextInt();
+		
+		for(int i=0;i<m-1;i++) {
+			int cur = Reader.nextInt();			
+			if(find(prev) != find(cur)) {
+				isPossible = false;
 				break;
 			}
-			
-			if(parent != find(Reader.nextInt())) {
-				break;
-			}
+			prev = cur;
 		}		
 		
 		if(isPossible) {
@@ -52,8 +53,7 @@ public class Main {
 		}
 			
 		
-	}
-	
+	}	
 	
 	public static int find(int u) {
 		if(u == parent[u])

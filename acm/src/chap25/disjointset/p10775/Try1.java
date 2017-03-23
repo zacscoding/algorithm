@@ -8,7 +8,7 @@ import java.io.*;
 import java.util.*;
 
 
-public class Main {
+public class Try1 {
 	public static void main(String[] args) throws Exception {
 		Reader.init(System.in);
 		

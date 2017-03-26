@@ -2,7 +2,9 @@ package chap25.disjointset.p4195;
 
 /*
 https://www.acmicpc.net/problem/4195
+
 Runtime 에러
+
  */
 
 import java.io.*;
@@ -14,7 +16,6 @@ public class Main {
 	public static int count;
 	public static Map<String,Integer> network;
 	public static int[] parent = new int[100001];
-	public static int[] rank = new int[100001];
 	
 	public static void main(String[] args) throws Exception {		
 		Reader.init(System.in);		
@@ -32,16 +33,17 @@ public class Main {
 				String f1 = Reader.next();
 				String f2 = Reader.next();
 				Integer p1 = network.get(f1);
-				Integer p2 = network.get(f2);
-				
 				if(p1 == null) {
 					p1 = idx++;
 					network.put(f1, p1);					
-				}				
+				}
+				
+				Integer p2 = network.get(f2);				
 				if(p2 == null) {
 					p2 = idx++;				
 					network.put(f2, p2);
-				}				
+				}			
+				
 				union(p1,p2);				
 				System.out.println(-1*parent[find(p1)]);
 			}

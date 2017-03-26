@@ -4,76 +4,94 @@ package chap25.disjointset.p2843;
 
 https://www.acmicpc.net/problem/2843
 
-로직1)
-adj[i] = j : i에서 j로 간선 존재(i == j 으면 루프)
-dest[i] = j : i에서 출발에서 j로 도착
-(union 시 항상 도착지를 root로 유지)
+*/
 
-
-
- */
 
 import java.io.*;
 import java.util.*;
 
-
+class Pair {
+	int first,second;
+	Pair(int a,int b) {
+		this.first = a;
+		this.second = b;
+	}
+}
 
 public class Main {	
-	public static int N;
-	public static int[] parent;
-	public static int[] adj;
+	public static int n,q,a,b,f;
+	public static int[] par = new int[300010]; //부모노드
+	public static int[] arr = new int[300010]; //adj
+	public static boolean[] out = new boolean[300010];
+	public static boolean[] cycle = new boolean[300010];
+	public static Pair[] query = new Pair[300300];
+	public static Stack<Integer> ans = new Stack<>();
 	
-	public static int Q;
 	public static void main(String[] args) throws Exception {		
 		Reader.init(System.in);
-		N = Reader.nextInt();
-		parent = new int[N+1];
-		adj = new int[N+1];
+		n = Reader.nextInt();
 		
-		for(int i=1; i<=N; i++) {			
-			parent[i] = i;
+		for (int i = 1; i <= n; i++)
+			par[i] = i;
+		
+		for (int i = 1; i <= n; i++)
+			arr[i] = Reader.nextInt();
+		
+		q = Reader.nextInt();
+		
+		for(int i = q-1; i>=0; i--) {
+			a = Reader.nextInt();
+			b = Reader.nextInt();
+			query[i] = new Pair(a,b);
+			if(a == 2)
+				out[b] = true; //간선 삭제 예정인 것들 true
 		}
 		
-		for(int i=1; i<=N; i++) {			
-			adj[i] = Reader.nextInt();
-			union(i,adj[i]);
-		}
-		
-		//sol
-		int Q = Reader.nextInt();
-		for(int i=0; i<Q; i++) {
-			int comm = Reader.nextInt();
-			int idx = Reader.nextInt();
-			if(comm == 1) {
-				if(idx == adj[idx]) {
-					System.out.println(idx);
-				} else {
-					if(parent[adj[idx]] == parent[idx]) {
-						if(parent[idx] == adj[parent[idx]]);
-					}
-				}				
-			} else {
-				adj[idx] = idx;
-				parent[idx] = idx;
+		//루트라서 유니온 하지 않음?
+		for (int i = 1; i <= n; i++) {
+			if (!out[i]) {
+				if (arr[i] != 0)
+					merge(i, arr[i]);
 			}
-		}		
+		}
+		
+		for (int i = 0; i < q; i++) {
+			Pair x = query[i];
+			if(x.first == 2) {
+				merge(x.second, arr[x.second]);
+				out[x.second] = false;
+			} else {
+				if(cycle[find(x.second)])
+					ans.push(-1);
+				else
+					ans.push(find(x.second));
+			}
+		}
+		
+		while(!ans.isEmpty()) {
+			int x = ans.pop();
+			if(x == -1)
+				System.out.println("CIKLUS");
+			else
+				System.out.println(x);
+		}
 	}
 	
-	
-	
-	public static int find(int u) {
-		if(u == parent[u])
-			return u;
-		return parent[u] = find(parent[u]);
+	public static int find(int x) {
+		if(par[x] == x)
+			return x;
+		return par[x] = find(par[x]);
 	}
 	
-	public static void union(int u,int v) {
-		u = find(u);
-		v = find(v);					
-		find(u);
+	public static void merge(int x, int y) {
+		x = find(x);
+		y = find(y);
+		if (x == y) {
+			cycle[x] = true;
+			return;
+		}
+		par[x] = y;
 	}
-	
-	
 	
 
 	static class Reader {

@@ -1,54 +1,69 @@
 package chap25.disjointset.p10775;
 
+/*
+
+https://www.acmicpc.net/problem/10775
+
+ */
+
 import java.io.*;
 import java.util.*;
 
+
 public class Main {
 	public static int[] parent = new int[100001];
-	public static int[] rank = new int[100001];
-	public static int G;
-	public static int P;
-	public static void main(String[] args) throws Exception {		
+	public static void main(String[] args) throws Exception {
 		Reader.init(System.in);
 		
-		G = Reader.nextInt();	
-		for(int i=0;i<=G;i++) {
-			parent[i] = -1;
-			rank[i] = 1;
+		int G = Reader.nextInt();
+		int P = Reader.nextInt();
+		
+		//init
+		for(int i=0; i<=G; i++) {
+			parent[i] = i;
 		}
 		
-		P = Reader.nextInt();		
 		int count = 0;
-		
 		for(int i=0; i<P; i++) {
-			int g = Reader.nextInt();			
-			if(find(g) >= 1) {
-				union(g,g-1);
+			int g = Reader.nextInt();
+			int parent = find(g);
+			if(parent > 0) {				
+				union(parent,parent-1);
 				count++;
 			} else {
-				System.out.println(count);
 				break;
-			}
-		}
+			}	
+		}	
+		
+		
+		System.out.println(count);
+		
 	}
 	
 	public static int find(int u) {
-		if(parent[u] < 0)
+		if(u == parent[u])
 			return u;
-		return 0;
+		return parent[u] = find(parent[u]);
 	}
 	
 	public static void union(int u,int v) {
 		u = find(u);
 		v = find(v);
+		
 		if(u == v)
 			return;
+		if(u > v) {
+			int temp = u;
+			u = v;
+			v = temp;
+		}
 		
-		parent[u] += parent[v];
-		parent[v] = u;
+		parent[v] = u;	
 	}
 	
 	
+	
+
 	static class Reader {
 		static BufferedReader reader;
 		static StringTokenizer tokenizer;		
@@ -71,6 +86,12 @@ public class Main {
 		
 		public static int nextInt() throws IOException {
 			return Integer.parseInt( next() );
-		}				
+		}
+		
+		public static void close() throws IOException {
+			if(reader != null)
+				reader.close();
+		}
+		
 	}
 }

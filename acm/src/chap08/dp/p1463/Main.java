@@ -43,6 +43,9 @@ public class Main {
 	
 	
 	//Top-down
+	// 1) n-1 
+	// 2) n/2
+	// 3) n/3
 	public static int solve(int n) {
 		if(n==1) return 0;
 		if(dp[n] > 0) return dp[n];

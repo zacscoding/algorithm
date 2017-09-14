@@ -1,15 +1,12 @@
 import java.io.*;
 import java.util.*;
 
+// https://www.acmicpc.net/problem/
 public class Main {	
 	public static void main(String[] args) throws Exception {		
 		Reader.init(System.in);
 		
-		
-		
-		
 	}
-	
 
 	static class Reader {
 		static BufferedReader reader;

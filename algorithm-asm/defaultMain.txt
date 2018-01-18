@@ -1,0 +1,19 @@
+import java.util.Scanner;
+
+
+// https://www.acmicpc.net/problem/
+public class Main {
+    public static void main(String[] args) throws Exception {
+    	Scanner sc = new Scanner(new FileInputStream("input.txt"));
+        //Scanner sc = new Scanner(System.in);
+        int cases = sc.nextInt();
+        while(cases-- > 0) {
+        	/**	input	*/
+        	
+        	
+        	/**	output	*/
+        }
+        
+        sc.close();        
+    }
+}

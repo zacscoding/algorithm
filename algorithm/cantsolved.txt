@@ -1,2 +1,0 @@
-- chap21.tree.prob2
- https://www.acmicpc.net/problem/11725

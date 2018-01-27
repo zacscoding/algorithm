@@ -12,7 +12,8 @@ import java.util.StringTokenizer;
  * @author zaccoding
  * @Date 2017. 9. 21.
  */
-public class Main {    
+public class Main {
+    // 길이가 i이고 마지막 숫자가 j인 오르막 수의 개수
     static long dp[][] = new long[10001][10];
     static final long mod = 10007L;
     public static void main(String[] args) throws IOException {
@@ -28,7 +29,8 @@ public class Main {
         for(int i=2; i<=N; i++) {
             for(int j=0; j<10; j++) {
                 for(int k=0; k<=j; k++) {
-                    dp[i][j] += (dp[i-1][k] % mod);
+                    dp[i][j] += dp[i-1][k];
+                    dp[i][j] %= mod;
                 }
             }
         }

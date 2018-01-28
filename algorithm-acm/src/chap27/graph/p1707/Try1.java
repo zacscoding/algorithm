@@ -1,52 +1,62 @@
-package chap27.graph.p11724;
+package chap27.graph.p1707;
 
 import java.io.*;
 import java.util.*;
 
 /**
- * https://www.acmicpc.net/problem/11724
+ * https://www.acmicpc.net/problem/1707
  *
  * @author zacconding
  * @Date 2018-01-28
  * @GitHub : https://github.com/zacscoding
  */
-public class Main {
+public class Try1 {
 
     public static int[][] adj;
-    public static int m, n;
-    public static boolean[] visited;
+    public static int V, E;
+    public static int[] color;
 
     public static void main(String[] args) throws IOException {
         Reader.init(System.in);
-        m = Reader.nextInt();
-        n = Reader.nextInt();
-        adj = new int[m + 1][m + 1];
-        visited = new boolean[m + 1];
-        for (int i = 0; i < n; i++) {
-            int a = Reader.nextInt();
-            int b = Reader.nextInt();
-            adj[a][b] = 1;
-            adj[b][a] = 1;
-        }
-        int answer = 0;
-        for (int i = 1; i <= m; i++) {
-            if (!visited[i]) {
-                answer++;
-                dfs(i);
+        int T = Reader.nextInt();
+        while (T-- > 0) {
+            V = Reader.nextInt();
+            E = Reader.nextInt();
+            adj = new int[V + 1][V + 1];
+            color = new int[V + 1];
+            for (int i = 0; i < E; i++) {
+                int a = Reader.nextInt();
+                int b = Reader.nextInt();
+                adj[a][b] = 1;
+                adj[b][a] = 1;
             }
+
+            for (int i = 1; i <= V; i++) {
+                if (color[i] == 0) {
+                    dfs(i, 1);
+                }
+            }
+
+            System.out.println(solve() ? "YES" : "NO");
         }
-        System.out.println(answer);
-        Reader.close();
     }
 
-    public static void dfs(int start) {
-        if (visited[start]) {
-            return;
+    public static boolean solve() {
+        for (int i = 1; i <= V; i++) {
+            for (int j = 1; j <= V; j++) {
+                if (adj[i][j] == 1 && color[i] == color[j]) {
+                    return false;
+                }
+            }
         }
-        visited[start] = true;
-        for (int i = 0; i < adj[start].length; i++) {
-            if (adj[start][i] == 1 && !visited[i]) {
-                dfs(i);
+        return true;
+    }
+
+    public static void dfs(int visit, int c) {
+        color[visit] = c;
+        for (int i = 1; i <= V; i++) {
+            if (adj[visit][i] == 1 && color[i] == 0) {
+                dfs(i, 3 - c);
             }
         }
     }

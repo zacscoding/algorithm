@@ -4,7 +4,7 @@ import java.util.*;
 // https://www.acmicpc.net/problem/
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws IOException {
         Reader.init(System.in);
 
     }
@@ -31,6 +31,16 @@ public class Main {
 
         public static int nextInt() throws IOException {
             return Integer.parseInt(next());
+        }
+
+        public static void close() {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+
+                }
+            }
         }
     }
 }

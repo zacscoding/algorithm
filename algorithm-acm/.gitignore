@@ -4,6 +4,7 @@
 *.iws
 *.ipr
 out/
+target/
 
 ### NetBeans ###
 nbproject/private/

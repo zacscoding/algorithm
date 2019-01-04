@@ -1,14 +1,32 @@
+package chap.basic.p2751;
+
 import java.io.*;
 import java.util.*;
 
 /**
  * https://www.acmicpc.net/problem/
  */
-public class Main {
+public class Main2 {
+
+    static int N;
 
     public static void main(String[] args) throws IOException {
         Reader.init(System.in);
 
+        N = Reader.nextInt();
+        int[] a = new int[N];
+        for (int i = 0; i < N; i++) {
+            a[i] = Reader.nextInt();
+        }
+
+        Arrays.sort(a);
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < a.length; i++) {
+            sb.append(a[i]).append("\n");
+        }
+
+        System.out.println(sb);
     }
 
     static class Reader {

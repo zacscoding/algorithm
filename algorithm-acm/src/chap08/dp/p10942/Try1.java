@@ -11,13 +11,44 @@ import java.util.StringTokenizer;
  */
 public class Try1 {
 
+    /*
+7
+1 2 1 3 1 2 1
+4
+1 3
+2 5
+3 3
+5 7
+     */
     static int[] a = new int[2001];
     static int N;
     static int M;
 
     public static void main(String[] args) throws Exception {
         Reader.init(System.in);
+        N = Reader.nextInt();
 
+        for (int i = 1; i <= N; i++) {
+            a[i] = Reader.nextInt();
+        }
+
+        M = Reader.nextInt();
+        for (int i = 1; i <= M; i++) {
+            System.out.println(isPalindrome(Reader.nextInt(), Reader.nextInt()));
+        }
+    }
+
+
+    static String isPalindrome(int s, int e) {
+        int size = (int) Math.ceil(e - s + 1);
+
+        for (int i = 0; i < size; i++) {
+            if (a[s + i] != a[e - i]) {
+                return "0";
+            }
+        }
+
+        return "1";
     }
 
     static class Reader {

@@ -1,3 +1,5 @@
+package chap.basic.p2751;
+
 import java.io.*;
 import java.util.*;
 
@@ -6,9 +8,25 @@ import java.util.*;
  */
 public class Main {
 
+    static int N;
+    static PriorityQueue<Integer> que = new PriorityQueue<>(1000000);
+
     public static void main(String[] args) throws IOException {
         Reader.init(System.in);
 
+        N = Reader.nextInt();
+
+        for (int i = 0; i < N; i++) {
+            que.offer(Reader.nextInt());
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        while (!que.isEmpty()) {
+            sb.append(que.poll()).append("\n");
+        }
+
+        System.out.println(sb);
     }
 
     static class Reader {

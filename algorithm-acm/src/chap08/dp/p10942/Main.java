@@ -7,22 +7,15 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 /**
- * https://www.acmicpc.net/problem/10942
+ * @author zacconding
+ * @Date 2019-01-03
+ * @GitHub : https://github.com/zacscoding
  */
-public class Try1 {
+public class Main {
 
-    /*
-7
-1 2 1 3 1 2 1
-4
-1 3
-2 5
-3 3
-5 7
-     */
+    static int N, M;
     static int[] a = new int[2001];
-    static int N;
-    static int M;
+    static boolean[][] dp = new boolean[2001][2001];
 
     public static void main(String[] args) throws Exception {
         Reader.init(System.in);
@@ -30,25 +23,43 @@ public class Try1 {
 
         for (int i = 1; i <= N; i++) {
             a[i] = Reader.nextInt();
+            // length 1
+            dp[i][i] = true;
         }
 
-        M = Reader.nextInt();
-        for (int i = 1; i <= M; i++) {
-            System.out.println(isPalindrome(Reader.nextInt(), Reader.nextInt()));
-        }
-    }
-
-
-    static String isPalindrome(int s, int e) {
-        int size = (int) Math.ceil(e - s + 1);
-
-        for (int i = 0; i < size; i++) {
-            if (a[s + i] != a[e - i]) {
-                return "0";
+        // length 2
+        for (int i = 1; i < N; i++) {
+            if (a[i] == a[i + 1]) {
+                dp[i][i + 1] = true;
             }
         }
 
-        return "1";
+        // length 3 ~
+        for (int k = 2; k < N; k++) {
+            for (int i = 1; i <= N - k; i++) {
+                // length k
+                int j = i + k;
+                if (a[i] == a[j] && dp[i + 1][j - 1]) {
+                    dp[i][j] = true;
+                }
+            }
+        }
+
+        M = Reader.nextInt();
+
+        StringBuilder sb = new StringBuilder(M * 2);
+        for (int i = 0; i < M; i++) {
+            int s = Reader.nextInt();
+            int e = Reader.nextInt();
+            if (dp[s][e]) {
+                sb.append(1);
+            } else {
+                sb.append(0);
+            }
+            sb.append("\n");
+        }
+        
+        System.out.println(sb);
     }
 
     static class Reader {
@@ -76,5 +87,4 @@ public class Try1 {
             return Integer.parseInt(next());
         }
     }
-
 }

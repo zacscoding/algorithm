@@ -1,14 +1,30 @@
+package chap.basic.p10872;
+
 import java.io.*;
 import java.util.*;
 
 /**
- * https://www.acmicpc.net/problem/
+ * https://www.acmicpc.net/problem/10872
  */
-public class Try1 {
+public class Main {
+
+    static int N;
 
     public static void main(String[] args) throws IOException {
         Reader.init(System.in);
 
+        N = Reader.nextInt();
+        if (N == 0) {
+            System.out.println(1);
+        } else {
+            long answer = 1L;
+
+            for (int i = N; i >= 1; i--) {
+                answer *= i;
+            }
+
+            System.out.println(answer);
+        }
     }
 
     static class Reader {

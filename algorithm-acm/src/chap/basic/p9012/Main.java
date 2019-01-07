@@ -1,14 +1,43 @@
+package chap.basic.p9012;
+
 import java.io.*;
 import java.util.*;
 
 /**
- * https://www.acmicpc.net/problem/
+ * https://www.acmicpc.net/problem/9012
  */
-public class Try1 {
+public class Main {
+
+    static final char OPEN = '(';
+    static final char CLOSE = ')';
+    static int T;
 
     public static void main(String[] args) throws IOException {
         Reader.init(System.in);
+        T = Reader.nextInt();
 
+        StringBuilder answer = new StringBuilder();
+        while (T-- > 0) {
+            answer.append(solve(Reader.nextLine()));
+        }
+
+        System.out.print(answer);
+    }
+
+    static String solve(String line) {
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < line.length(); i++) {
+            char ch = line.charAt(i);
+            if (ch == OPEN) {
+                stack.push(ch);
+            } else {
+                if (stack.isEmpty() || stack.pop() != OPEN) {
+                    return "NO\n";
+                }
+            }
+        }
+
+        return stack.isEmpty() ? "YES\n" : "NO\n";
     }
 
     static class Reader {

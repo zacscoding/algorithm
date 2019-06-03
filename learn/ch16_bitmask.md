@@ -100,6 +100,127 @@ bool isBitSet(unsigned long long a, int b) {
 => 1은 부호 있는 32비트 상수로 취급되기 때문에, b 가 32보다 크면 오버플로  
 
 ## 피자집 예제  
+; 피자에 0~19의 번호를 가지는 토핑이 존재할 경우  
+
+
+### 공집합과 꽉 찬 집합 구하기  
+
+- 공집합 == 상수 0
+- 꽉 찬 집합  
+```
+int fullPizza = (1 << 20) -1;
+
+e.g)
+10000 <== 1 << 4
+1111 <== (1 <<4) -1
+```  
+
+### 원소 추가  
+
+```aidl
+  toppings |= (1 << p);  , where 0<= p < 20
+```  
+
+### 원포 포함 여부   
+
+(주 : 연산 결과는 0 or (1 << p) )
+
+```aidl
+if( (toppings & ( 1 << p)) ) true
+```  
+
+### 원소 삭제  
+
+```aidl
+toppings &= ~(1 << p);
+```  
+
+### 원소의 토글  
+; 해당 비트가 켜져 있으면 끄고, 꺼져 있으면 켬  
+
+```aidl
+toppings ^= ( 1 << p);
+```  
+
+### 두 집합에 대해 연산하기  
+
+```aidl
+int added = ( a | b);             // a 와 b 의 합집합
+int intersection = ( a & b);   // a 와 b 의 교집합
+int removed = ( a & ~b);      // a에서 b를 뺀 차집합
+int toggled = (a ^ b);            // a와 b중 하나에만 포함된 원소들의 집합
+```  
+
+### 집합의 크기 구하기  
+
+```aidl
+int bitCount(int x) {
+  return x % 2 + bitCouint(x / 2);
+}
+```  
+
+- 라이브러리  
+
+gcc/g++   : __builtin_pocount(toppings)  
+Visual C++ : __popcnt(toppings)  
+Java : Integer.bitCount(toppings)
+
+### 최소 원소 찾기  (e.g : 40 일 경우 3)
+
+- 라이브러리  
+  
+gcc/g++   : __builtin_ctz(toppings)  
+Visual C++ : __NotScamFprward(&index, toppings)  
+Java : Integer.numberOfTrailingZeros(toppings)  
+
+### 최소 원소 값 찾기 ( e.g : 40 일 경우 2^3 == 8 )  
+
+```aidl
+int firstTopping = (toppings & -toppings)
+```  
+
+=> 음수 (-toppings) 는 NOT 연산 후 1을 더함  
+=> 켜진 최하위 비트가 2^i 라고 가정  
+=> ~(toppings)는 i번째는 0 & i-1 까지는 다 1  
+=> ~(toppings) + 1 은  i 번째는 1 , i-1 까지 다 0, i+1 부터는 NOT 적용  
+=> (toppings & -toppings) == 2^i    
+
+### 최소 원소 지우기  
+
+```aidl
+toppings &= (toppings -1)  
+```    
+
+=> (toppings -1) 은 0~i-1 까지는 모두 1, i 번째는 0, i+1 번째부터는 그대로  
+=> toppings & (toppings -1) 은 i번째 까지는 모두 0 / i +1 번째 부터는 그대로  
+
+=> 어떤 수가 2의 거듭제곱인지 체크할 수 있음  
+(2의 거듭제곱 값들의 이진수 표현에는 켜진 비트가 1개)  
+
+### 모든 부분 집합 순회하기  
+
+```aidl
+for ( int subset = pizza; subset; subset = ( (subset - 1) & pizza ) {
+  // subset은 pizza의 부분 집합
+}
+```  
+
+=> (subset -1) 은 켜져 있는 최하위 비트를 끄고 하위 비트는 모두 켬  
+=> (subset -1) & pizza 는 최하위 비트를 제거 한 토핑  
+
+```aidl
+e.g) 토핑이 1101 일 경우 subset 값들
+1101
+1100
+1001
+1000
+0101
+0100
+0001  
+```
+ 
+
+### 피자집 예제 소스코드
 
 ```
 public class PizzaOrder {

@@ -1,9 +1,9 @@
-package chap.basic;
+package chap.basic.p2750;
 
 import java.io.*;
 import java.util.*;
 
-public class p2750 {
+public class Main {
 	public static int[] arr;
 	public static void main(String[] args) throws Exception {
 		Reader.init(System.in);

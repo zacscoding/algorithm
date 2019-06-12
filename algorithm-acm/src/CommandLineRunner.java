@@ -13,8 +13,8 @@ public class CommandLineRunner {
 
     public static void main(String[] args) throws Exception {
         args = new String[]{
-            "chap/basic"
-            , "20444"
+            "chap19/questackdeque"
+            , "10845"
         };
 
         if (args == null || args.length != 2) {
@@ -27,6 +27,7 @@ public class CommandLineRunner {
 
     private static void writeDefaultJavaFile(String[] args) throws Exception {
         String packageValue = args[0] + "/p" + args[1];
+        System.out.println("## Try to create package " + packageValue);
 
         Path sourcePath = Paths.get("src");
         Path packagePath = sourcePath.resolve(packageValue);
@@ -38,6 +39,7 @@ public class CommandLineRunner {
         File defaultSourceFile = new File("defaultMainReader.txt");
         File writeSourceFile = packagePath.resolve("Try1.java").toFile();
         writeSourceFile.createNewFile();
+        System.out.println("## Try to write Try1 java file : " + writeSourceFile.getAbsolutePath());
 
         try (FileInputStream fis = new FileInputStream(defaultSourceFile);
             FileOutputStream fos = new FileOutputStream(writeSourceFile)) {

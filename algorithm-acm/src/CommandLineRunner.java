@@ -11,9 +11,15 @@ import java.nio.file.attribute.FileAttribute;
  */
 public class CommandLineRunner {
 
+    static final String BASIC = "chap/basic";
+    static final String DP = "chap08/dp";
+    static final String BITMASK = "chap16/bitmask";
+    static final String PARTIALSUM = "chap17/partialsum";
+    static final String QUEUESTACKDEQUE = "chap19/questackdeque";
+
     public static void main(String[] args) throws Exception {
         args = new String[]{
-            "chap/basic"
+            QUEUESTACKDEQUE
             , "1966"
         };
 

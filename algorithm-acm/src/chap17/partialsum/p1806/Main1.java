@@ -1,50 +1,100 @@
 package chap17.partialsum.p1806;
 
-import java.io.FileInputStream;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
-/*
-https://www.acmicpc.net/problem/1806
+/**
+ * https://www.acmicpc.net/problem/1806
  */
 public class Main1 {
-	public static int N;
-	public static int S;
-	public static int[] seq;	
-	public static int[] psum;
-	
-	public static void main(String[] args) throws Exception {
-		Scanner sc=new Scanner(new FileInputStream("input.txt"));
-		//Scanner sc = new Scanner(System.in);
-		
-		//문제		
-		N = sc.nextInt();
-		S = sc.nextInt();		
-		seq = new int[N];
-		psum = new int[N];
-		
-		psum[0] = seq[0] = sc.nextInt();		
-		for(int i=1;i<N;i++) {
-			seq[i] = sc.nextInt();
-			psum[i] = psum[i-1] + seq[i];
-		}				
-		//정답			
-		System.out.println(solve(psum));				
-		sc.close();
-	}	
-	
-	public static int solve(int[] psum) {
-		//기저
-		if(psum[N-1]<S)
-			return 0;		
-		
-		int cnt = 0;
-		A:while(cnt < N) {
-			for(int i=1;i<N;i++) {
-				if( (i+cnt)<N && psum[i+cnt] - psum[i-1] >= S)
-					break A;				
-			}		
-			cnt++;
-		}	
-		return cnt+1;
-	}
+
+    static int N;
+    static int S;
+    static int[] psum = new int[100001];
+    static int[] seq;
+
+    public static void main(String[] args) throws IOException {
+//        String data = "4 10\n"
+//                      + "5 7 6 10\n";
+//        InputStream stream = new ByteArrayInputStream(data.getBytes());
+//        System.setIn(stream);
+        Reader.init(System.in);
+        N = Reader.nextInt();
+        S = Reader.nextInt();
+        seq = new int[N + 1];
+        for (int i = 1; i <= N; i++) {
+            seq[i] = Reader.nextInt();
+            psum[i] = psum[i - 1] + seq[i];
+        }
+
+        if (psum[N] < S) {
+            System.out.println(0);
+        } else if (psum[N] == S) {
+            System.out.println(N);
+        } else {
+            int l = -1;
+            boolean found = false;
+            while (l < N) {
+                l++;
+                for (int i = 1; i <= N - l; i++) {
+                    if (rangeSum(i, i + l) >= S) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found) {
+                    break;
+                }
+            }
+            System.out.println(l + 1);
+        }
+    }
+
+    static int rangeSum(int a, int b) {
+        if (a == b) {
+            return seq[a];
+        }
+
+        if (a == 1) {
+            return psum[b];
+        }
+
+        return psum[b] - psum[a - 1];
+    }
+
+    static class Reader {
+
+        static BufferedReader reader;
+        static StringTokenizer tokenizer;
+
+        public static void init(InputStream input) {
+            reader = new BufferedReader(new InputStreamReader(input));
+        }
+
+        public static String nextLine() throws IOException {
+            return reader.readLine();
+        }
+
+        public static String next() throws IOException {
+            while (tokenizer == null || !tokenizer.hasMoreTokens()) {
+                tokenizer = new StringTokenizer(reader.readLine());
+            }
+            return tokenizer.nextToken();
+        }
+
+        public static int nextInt() throws IOException {
+            return Integer.parseInt(next());
+        }
+
+        public static void close() {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+
+                }
+            }
+        }
+    }
 }

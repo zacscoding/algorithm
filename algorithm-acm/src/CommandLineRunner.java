@@ -19,8 +19,8 @@ public class CommandLineRunner {
 
     public static void main(String[] args) throws Exception {
         args = new String[]{
-            QUEUESTACKDEQUE
-            , "1966"
+                PARTIALSUM
+            , "1806"
         };
 
         if (args == null || args.length != 2) {

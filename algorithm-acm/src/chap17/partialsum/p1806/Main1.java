@@ -14,10 +14,9 @@ public class Main1 {
     static int[] seq;
 
     public static void main(String[] args) throws IOException {
-//        String data = "4 10\n"
-//                      + "5 7 6 10\n";
-//        InputStream stream = new ByteArrayInputStream(data.getBytes());
-//        System.setIn(stream);
+        String data = "";
+        InputStream stream = new ByteArrayInputStream(data.getBytes());
+        System.setIn(stream);
         Reader.init(System.in);
         N = Reader.nextInt();
         S = Reader.nextInt();

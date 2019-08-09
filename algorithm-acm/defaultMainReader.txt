@@ -7,8 +7,10 @@ import java.util.*;
 public class Try1 {
 
     public static void main(String[] args) throws IOException {
+        String data = "";
+        InputStream stream = new ByteArrayInputStream(data.getBytes());
+        System.setIn(stream);
         Reader.init(System.in);
-
     }
 
     static class Reader {

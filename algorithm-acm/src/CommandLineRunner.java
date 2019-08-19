@@ -19,8 +19,8 @@ public class CommandLineRunner {
 
     public static void main(String[] args) throws Exception {
         args = new String[]{
-                PARTIALSUM
-            , "2369"
+                BASIC
+            , "9093"
         };
 
         if (args == null || args.length != 2) {

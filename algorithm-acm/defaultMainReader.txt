@@ -2,6 +2,8 @@ import java.io.*;
 import java.util.*;
 
 /**
+ * https://github.com/zacscoding
+ *
  * https://www.acmicpc.net/problem/
  */
 public class Try1 {

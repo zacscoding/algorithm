@@ -12,6 +12,7 @@ import java.nio.file.attribute.FileAttribute;
 public class CommandLineRunner {
 
     static final String BASIC = "chap/basic";
+    static final String BRUTE_FORCE = BASIC + "/bruteforce";
     static final String DP = "chap08/dp";
     static final String BITMASK = "chap16/bitmask";
     static final String PARTIALSUM = "chap17/partialsum";
@@ -19,8 +20,8 @@ public class CommandLineRunner {
 
     public static void main(String[] args) throws Exception {
         args = new String[]{
-                BASIC
-            , "17413"
+                BRUTE_FORCE
+            , "3085"
         };
 
         if (args == null || args.length != 2) {

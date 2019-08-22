@@ -9,7 +9,7 @@ import java.nio.file.attribute.FileAttribute;
 /**
  *
  */
-public class CommandLineRunner {
+public class SourceGenerateRunner {
 
     static final String BASIC = "chap/basic";
     static final String BRUTE_FORCE = BASIC + "/bruteforce";
@@ -19,9 +19,9 @@ public class CommandLineRunner {
     static final String QUEUESTACKDEQUE = "chap19/questackdeque";
 
     public static void main(String[] args) throws Exception {
-        args = new String[]{
-                BRUTE_FORCE
-            , "3085"
+        args = new String[] {
+                BASIC
+                , "17298"
         };
 
         if (args == null || args.length != 2) {
@@ -49,12 +49,12 @@ public class CommandLineRunner {
         System.out.println("## Try to write Try1 java file : " + writeSourceFile.getAbsolutePath());
 
         try (FileInputStream fis = new FileInputStream(defaultSourceFile);
-            FileOutputStream fos = new FileOutputStream(writeSourceFile)) {
+             FileOutputStream fos = new FileOutputStream(writeSourceFile)) {
 
             StringBuilder sb = new StringBuilder();
             sb.append("package ")
-                .append(packageValue.replace("/", "."))
-                .append(";\n\n");
+              .append(packageValue.replace("/", "."))
+              .append(";\n\n");
 
             int availableLen = fis.available();
             byte[] buf = new byte[availableLen];
@@ -64,10 +64,10 @@ public class CommandLineRunner {
 
             String gitComment = "https://www.acmicpc.net/problem/";
             String source = sb.toString()
-                .replace(
-                    gitComment,
-                    gitComment + args[1]
-                );
+                              .replace(
+                                      gitComment,
+                                      gitComment + args[1]
+                              );
 
             fos.write(source.getBytes());
         }

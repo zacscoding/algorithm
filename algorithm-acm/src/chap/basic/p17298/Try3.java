@@ -8,14 +8,14 @@ import java.util.*;
  *
  * https://www.acmicpc.net/problem/17298
  */
-public class Try1 {
+public class Try3 {
 
     static int N;
     static Input[] a;
 
     public static void main(String[] args) throws IOException {
-        String data = "2\n"
-                      + "3 5";
+        String data = "4\n"
+                      + "9 5 4 8";
         InputStream stream = new ByteArrayInputStream(data.getBytes());
         System.setIn(stream);
         Reader.init(System.in);
@@ -26,36 +26,31 @@ public class Try1 {
 
         for (int i = 0; i < N; i++) {
             int v = Reader.nextInt();
-            a[i] = new Input(v);
+            a[i] = new Input(i, v);
         }
 
         stack.push(a[0]);
 
-        Input elt, next;
-
         for (int i = 1; i < N; i++) {
-            next = a[i];
-
-            if (!stack.isEmpty()) {
-                elt = stack.pop();
-
-                while (elt.val < next.val) {
-                    elt.nge = next.val;
-
-                    if (stack.isEmpty()) {
-                        break;
-                    }
-
-
-                    elt = stack.pop();
-                }
-
-                if (elt.val > next.val) {
-                    stack.push(elt);
-                }
+            if (stack.isEmpty()) {
+                stack.push(a[i]);
+                continue;
             }
 
-            stack.push(next);
+            if (stack.peek().val > a[i].val) {
+                stack.push(a[i]);
+                continue;
+            }
+
+            while (!stack.isEmpty()) {
+                if (stack.peek().val > a[i].val) {
+                    break;
+                }
+
+                stack.pop().nge = a[i].val;
+            }
+
+            stack.push(a[i]);
         }
 
         StringBuilder answer = new StringBuilder();
@@ -72,10 +67,12 @@ public class Try1 {
     }
 
     static class Input {
+        int idx;
         int val;
         int nge = -1;
 
-        public Input(int val) {
+        public Input(int idx, int val) {
+            this.idx = idx;
             this.val = val;
         }
     }

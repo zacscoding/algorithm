@@ -20,8 +20,8 @@ public class SourceGenerateRunner {
 
     public static void main(String[] args) throws Exception {
         args = new String[] {
-                BRUTE_FORCE
-                , "14500"
+                BASIC
+                , "1748"
         };
 
         if (args == null || args.length != 2) {

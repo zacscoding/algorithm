@@ -17,11 +17,12 @@ public class SourceGenerateRunner {
     static final String BITMASK = "chap16/bitmask";
     static final String PARTIALSUM = "chap17/partialsum";
     static final String QUEUESTACKDEQUE = "chap19/questackdeque";
+    static final String GRAPH = "chap27/graph";
 
     public static void main(String[] args) throws Exception {
         args = new String[] {
-                BASIC
-                , "1748"
+                GRAPH
+                , "13023"
         };
 
         if (args == null || args.length != 2) {

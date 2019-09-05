@@ -4,13 +4,14 @@ import java.util.*;
 
 /**
  * https://www.acmicpc.net/problem/11724
- * 
+ *
  * @author zaccoding
  * @Date 2017. 9. 13.
  */
 public class MainByList {
     static ArrayList<Integer>[] a;
     static boolean[] c;
+
     public static void dfs(int x) {
         if (c[x]) {
             return;
@@ -23,6 +24,7 @@ public class MainByList {
             }
         }
     }
+
     public static void bfs(int start) {
         Queue<Integer> q = new LinkedList<Integer>();
         q.add(start);
@@ -38,28 +40,29 @@ public class MainByList {
             }
         }
     }
+
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         int m = sc.nextInt();
         int start = sc.nextInt();
-        a = (ArrayList<Integer>[]) new ArrayList[n+1];
-        for (int i=1; i<=n; i++) {
+        a = (ArrayList<Integer>[]) new ArrayList[n + 1];
+        for (int i = 1; i <= n; i++) {
             a[i] = new ArrayList<Integer>();
         }
-        for (int i=0; i<m; i++) {
+        for (int i = 0; i < m; i++) {
             int u = sc.nextInt();
             int v = sc.nextInt();
             a[u].add(v);
             a[v].add(u);
         }
-        for (int i=1; i<=n; i++) {
+        for (int i = 1; i <= n; i++) {
             Collections.sort(a[i]);
         }
-        c = new boolean[n+1];
+        c = new boolean[n + 1];
         dfs(start);
         System.out.println();
-        c = new boolean[n+1];
+        c = new boolean[n + 1];
         bfs(start);
         System.out.println();
     }

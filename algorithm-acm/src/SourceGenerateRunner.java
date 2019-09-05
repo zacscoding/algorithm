@@ -19,21 +19,30 @@ public class SourceGenerateRunner {
     static final String QUEUESTACKDEQUE = "chap19/questackdeque";
     static final String GRAPH = "chap27/graph";
 
-    public static void main(String[] args) throws Exception {
-        args = new String[] {
-                GRAPH
-                , "13023"
-        };
+    public static void main(String[] args) {
+        try {
+            args = new String[] {
+                    GRAPH
+                    , "11724"
+            };
 
-        if (args == null || args.length != 2) {
-            printHelp();
-            System.exit(1);
+            if (args == null || args.length != 2) {
+                printHelp();
+                System.exit(1);
+            }
+
+            writeDefaultJavaFile(args);
+        } catch (Exception e) {
+            System.out.println("Failed to create file. reason : " + e.getMessage());
         }
-
-        writeDefaultJavaFile(args);
     }
 
     private static void writeDefaultJavaFile(String[] args) throws Exception {
+        try {
+            Integer.parseInt(args[1]);
+        } catch (NumberFormatException e) {
+            throw new Exception("Problem must be integer but \"" + args[1] + "\"");
+        }
         String packageValue = args[0] + "/p" + args[1];
         System.out.println("## Try to create package " + packageValue);
 

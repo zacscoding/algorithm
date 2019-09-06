@@ -21,6 +21,7 @@ public class TempTry {
             int b = Reader.nextInt();
             System.out.println(a + b);
         }
+        System.out.println("  ");
     }
 
     static class Reader {

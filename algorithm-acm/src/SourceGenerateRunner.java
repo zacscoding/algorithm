@@ -11,19 +11,19 @@ import java.nio.file.attribute.FileAttribute;
  */
 public class SourceGenerateRunner {
 
-    static final String BASIC = "chap/basic";
-    static final String BRUTE_FORCE = BASIC + "/bruteforce";
-    static final String DP = "chap08/dp";
-    static final String BITMASK = "chap16/bitmask";
-    static final String PARTIALSUM = "chap17/partialsum";
-    static final String QUEUESTACKDEQUE = "chap19/questackdeque";
-    static final String GRAPH = "chap27/graph";
+    public static final String BASIC = "chap/basic";
+    public static final String BRUTE_FORCE = BASIC + "/bruteforce";
+    public static final String DP = "chap08/dp";
+    public static final String BITMASK = "chap16/bitmask";
+    public static final String PARTIALSUM = "chap17/partialsum";
+    public static final String QUEUESTACKDEQUE = "chap19/questackdeque";
+    public static final String GRAPH = "chap27/graph";
 
     public static void main(String[] args) {
         try {
             args = new String[] {
                     GRAPH
-                    , "11724"
+                    , "16929"
             };
 
             if (args == null || args.length != 2) {
@@ -48,9 +48,16 @@ public class SourceGenerateRunner {
 
         Path sourcePath = Paths.get("src");
         Path packagePath = sourcePath.resolve(packageValue);
+        Path inoutPath = packagePath.resolve("inout.txt");
 
         // create package
         Files.createDirectories(packagePath, new FileAttribute[0]);
+
+        // create inout.txt
+        if(!Files.exists(inoutPath)) {
+            Files.createFile(inoutPath);
+        }
+
 
         // read default java
         File defaultSourceFile = new File("defaultMainReader.txt");

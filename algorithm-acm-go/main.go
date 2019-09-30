@@ -27,7 +27,7 @@ func main() {
 
 // createSourceFile create a default main.go source file
 func createSourceFile() {
-	p := 10817
+	p := 15654
 	sourceDir := getSourceDir()
 	pDir := filepath.Join(sourceDir, "p"+strconv.Itoa(p))
 	// create pXXX dir
@@ -37,7 +37,7 @@ func createSourceFile() {
 			fmt.Println(err)
 			os.Exit(1)
 		}
-		err = os.Mkdir(pDir, os.ModeDir)
+		err = os.Mkdir(pDir, 0700)
 		if err != nil {
 			fmt.Println(err)
 			os.Exit(1)
@@ -77,12 +77,12 @@ func createSourceFile() {
 
 // getSourceDir returns source directory depends on working location.
 func getSourceDir() string {
-	work := HOME
-	//work := COMP
+	//work := HOME
+	work := COMP
 	if work == HOME {
 		return "C:\\git\\zaccoding\\algorithm\\algorithm-acm-go"
 	} else if work == COMP {
-		return "/home/zaccoding/git/algorithm/algorithm-acm-go"
+		return "/home/zaccoding/git/zaccoding/algorithm/algorithm-acm-go"
 	}
 	return ""
 }

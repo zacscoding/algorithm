@@ -22,8 +22,8 @@ public class SourceGenerateRunner {
     public static void main(String[] args) {
         try {
             args = new String[] {
-                    GRAPH
-                    , "16929"
+                    BRUTE_FORCE
+                    , "15649"
             };
 
             if (args == null || args.length != 2) {

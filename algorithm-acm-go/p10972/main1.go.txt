@@ -1,0 +1,60 @@
+// https://www.acmicpc.net/problem/10972
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+)
+
+var (
+	wr = bufio.NewWriter(os.Stdout)
+	N  int
+	a  []int
+)
+
+func main() {
+	fmt.Scan(&N)
+	a = make([]int, N)
+	for i := 0; i < N; i++ {
+		fmt.Scan(&a[i])
+	}
+	if solve() {
+
+		for i := 0; i < N; i++ {
+			wr.WriteString(strconv.Itoa(a[i]))
+			wr.WriteByte(' ')
+		}
+		wr.WriteByte('\n')
+	} else {
+		fmt.Println(-1)
+	}
+}
+
+func solve() bool {
+	idx := 0
+	for i := N - 1; i > 0; i-- {
+		if a[i-1] < a[i] {
+			idx = i
+			break
+		}
+	}
+	if idx == 0 {
+		return false
+	}
+	idx2 := N - 1
+	t := -1
+	for i := idx; i < N; i++ {
+		if a[idx-1] < a[i] && (t == -1 || t > a[i]) {
+			t = a[i]
+			idx2 = i
+		}
+	}
+	a[idx-1], a[idx2] = a[idx2], a[idx-1]
+	count := (N - idx) / 2
+	for i := 0; i < count; i++ {
+		a[idx+i], a[N-1-i] = a[N-1-i], a[idx+i]
+	}
+	return true
+}

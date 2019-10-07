@@ -27,7 +27,7 @@ func main() {
 
 // createSourceFile create a default main.go source file
 func createSourceFile() {
-	p := 6603
+	p := 1759
 	sourceDir := getSourceDir()
 	pDir := filepath.Join(sourceDir, "p"+strconv.Itoa(p))
 	// create pXXX dir

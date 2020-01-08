@@ -13,6 +13,7 @@ public class SourceGenerateRunner {
 
     public static final String BASIC = "chap/basic";
     public static final String BRUTE_FORCE = BASIC + "/bruteforce";
+    public static final String TWO_POINT = BASIC + "/twopoint";
     public static final String DP = "chap08/dp";
     public static final String BITMASK = "chap16/bitmask";
     public static final String PARTIALSUM = "chap17/partialsum";
@@ -22,8 +23,8 @@ public class SourceGenerateRunner {
     public static void main(String[] args) {
         try {
             args = new String[] {
-                    BRUTE_FORCE
-                    , "15649"
+                    TWO_POINT
+                    , "2003"
             };
 
             if (args == null || args.length != 2) {
@@ -54,10 +55,9 @@ public class SourceGenerateRunner {
         Files.createDirectories(packagePath, new FileAttribute[0]);
 
         // create inout.txt
-        if(!Files.exists(inoutPath)) {
+        if (!Files.exists(inoutPath)) {
             Files.createFile(inoutPath);
         }
-
 
         // read default java
         File defaultSourceFile = new File("defaultMainReader.txt");
@@ -94,6 +94,6 @@ public class SourceGenerateRunner {
         System.out.println("-------------------------------------------------");
         System.out.println("java CommandLineRunner [package] [problem]");
         System.out.println("-------------------------------------------------");
-        System.out.println("e.g) java CommandLineRunner chap/basic/ 1023");
+        System.out.printf("e.g) java %s chap/basic/ 1023", SourceGenerateRunner.class.getSimpleName());
     }
 }

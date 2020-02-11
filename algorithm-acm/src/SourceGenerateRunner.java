@@ -13,6 +13,7 @@ public class SourceGenerateRunner {
 
     public static final String BASIC = "chap/basic";
     public static final String BRUTE_FORCE = BASIC + "/bruteforce";
+    public static final String GREEDY = BASIC + "/greedy";
     public static final String TWO_POINT = BASIC + "/twopoint";
     public static final String DP = "chap08/dp";
     public static final String BITMASK = "chap16/bitmask";
@@ -23,8 +24,8 @@ public class SourceGenerateRunner {
     public static void main(String[] args) {
         try {
             args = new String[] {
-                    TWO_POINT
-                    , "2003"
+                    GREEDY
+                    , "11047"
             };
 
             if (args == null || args.length != 2) {

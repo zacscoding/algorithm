@@ -78,9 +78,6 @@ public class Main {
 		if(rank[u] == rank[v])
 			rank[v]++;
 	}
-	
-	
-	
 
 	static class Reader {
 		static BufferedReader reader;

@@ -19,13 +19,14 @@ public class SourceGenerateRunner {
     public static final String BITMASK = "chap16/bitmask";
     public static final String PARTIALSUM = "chap17/partialsum";
     public static final String QUEUESTACKDEQUE = "chap19/questackdeque";
+    public static final String DISJOINTSET = "chap25/disjointset";
     public static final String GRAPH = "chap27/graph";
 
     public static void main(String[] args) {
         try {
             args = new String[] {
-                    GRAPH
-                    , "11724"
+                    DISJOINTSET
+                    , "1976"
             };
 
             if (args == null || args.length != 2) {

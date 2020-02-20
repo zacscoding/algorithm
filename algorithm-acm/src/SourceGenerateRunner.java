@@ -25,8 +25,8 @@ public class SourceGenerateRunner {
     public static void main(String[] args) {
         try {
             args = new String[] {
-                    DISJOINTSET
-                    , "1976"
+                    GREEDY
+                    , "10610"
             };
 
             if (args == null || args.length != 2) {

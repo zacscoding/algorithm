@@ -1,8 +1,5 @@
 package demo.javainterview.p3;
 
-/**
- * https://www.testdome.com/d/java-interview-questions/4
- */
 class Node {
     public int value;
     public Node left, right;

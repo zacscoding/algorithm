@@ -4,9 +4,6 @@ import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-/**
- * https://www.testdome.com/d/java-interview-questions/4
- */
 public class MergeNames {
 
     public static String[] uniqueNames(String[] names1, String[] names2) {

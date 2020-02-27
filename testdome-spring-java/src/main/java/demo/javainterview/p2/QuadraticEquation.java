@@ -1,8 +1,5 @@
 package demo.javainterview.p2;
 
-/**
- * https://www.testdome.com/d/java-interview-questions/4
- */
 public class QuadraticEquation {
     public static Roots findRoots(double a, double b, double c) {
         double sqrt = Math.sqrt(b * b - 4 * a * c);

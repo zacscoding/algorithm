@@ -25,8 +25,8 @@ public class SourceGenerateRunner {
     public static void main(String[] args) {
         try {
             args = new String[] {
-                    GREEDY
-                    , "10610"
+                    DP
+                    , "1932"
             };
 
             if (args == null || args.length != 2) {

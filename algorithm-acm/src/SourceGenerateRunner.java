@@ -25,8 +25,8 @@ public class SourceGenerateRunner {
     public static void main(String[] args) {
         try {
             args = new String[] {
-                    DP
-                    , "1932"
+                    BASIC
+                    , "13275"
             };
 
             if (args == null || args.length != 2) {

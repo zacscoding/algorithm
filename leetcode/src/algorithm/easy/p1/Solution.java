@@ -1,32 +1,78 @@
 package algorithm.easy.p1;
 
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * https://leetcode.com/problems/two-sum/
- *
- * @GitHub : https://github.com/zacscoding
  */
 public class Solution {
 
     public static void main(String[] args) {
-        String a = Arrays.toString(new Solution().twoSum(new int[]{2,7,11,15}, 9));
-        System.out.println(a);
+        System.out.println(
+                Arrays.toString(new Solution().twoSum_twoPoint(new int[] { 3, 2, 4 }, 6))
+        );
     }
 
-    public int[] twoSum(int[] nums, int target) {
-        int[] ret = new int[2];
-
-        for (int i = 0; i < nums.length; i++) {
+    // brute force
+    public int[] twoSum_bruteForce(int[] nums, int target) {
+        for (int i = 0; i < nums.length - 1; i++) {
             for (int j = i + 1; j < nums.length; j++) {
                 if (nums[i] + nums[j] == target) {
-                    ret[0] = i;
-                    ret[1] = j;
-                    return ret;
+                    return new int[] { i, j };
                 }
             }
         }
+        throw new RuntimeException("unreachable code");
+    }
 
-        return ret;
+    // map
+    public int[] twoSum_map(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            map.put(nums[i], i);
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            Integer idx = map.get(target - nums[i]);
+            if (idx != null && idx != i) {
+                return new int[] { i, idx };
+            }
+        }
+        throw new RuntimeException("unreachable code");
+    }
+
+    // two point with pair
+    public int[] twoSum_twoPoint(int[] nums, int target) {
+        Pair[] pairs = new Pair[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            pairs[i] = new Pair(i, nums[i]);
+        }
+        Arrays.sort(pairs, Comparator.comparingInt(p -> p.value));
+        int left = 0;
+        int right = nums.length - 1;
+        while (left <= right) {
+            int sum = pairs[left].value + pairs[right].value;
+            if (sum == target) {
+                return new int[] { pairs[left].idx, pairs[right].idx };
+            } else if (sum < target) {
+                left += 1;
+            } else {
+                right -= 1;
+            }
+        }
+        throw new RuntimeException("unreachable code");
+    }
+
+    public static class Pair {
+        int idx;
+        int value;
+
+        public Pair(int l, int r) {
+            this.idx = l;
+            this.value = r;
+        }
     }
 }

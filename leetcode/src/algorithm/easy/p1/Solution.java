@@ -44,6 +44,19 @@ public class Solution {
         throw new RuntimeException("unreachable code");
     }
 
+    public int[] twoSum_map2(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for(int i=0; i<nums.length; i++) {
+            Integer idx = map.get(target - nums[i]);
+            if (idx != null) {
+                return new int[] { i, idx };
+            }
+            map.put(nums[i], i);
+        }
+        throw new RuntimeException("unreachable code");
+    }
+
     // two point with pair
     public int[] twoSum_twoPoint(int[] nums, int target) {
         Pair[] pairs = new Pair[nums.length];

@@ -1,11 +1,43 @@
 package algorithm.easy.p104;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * https://leetcode.com/problems/maximum-depth-of-binary-tree/
  */
 public class Solution {
-
     public int maxDepth(TreeNode root) {
+        //return solveByRecursive(root);
+        return solveByBFS(root);
+    }
+
+    public int solveByBFS(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        Queue<TreeNode> que = new LinkedList<>();
+        que.offer(root);
+        int depth = 0;
+
+        while (!que.isEmpty()) {
+            depth++;
+            int repeat = que.size();
+            for (int i = 0; i < repeat; i++) {
+                TreeNode node = que.poll();
+                if (node.left != null) {
+                    que.offer(node.left);
+                }
+                if (node.right != null) {
+                    que.offer(node.right);
+                }
+            }
+        }
+        return depth;
+    }
+
+    public int solveByRecursive(TreeNode root) {
         if (root == null) {return 0;}
         return maxDepth(root, 1);
     }

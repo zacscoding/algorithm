@@ -18,6 +18,11 @@
   - [4.3 트리](#43-트리)     
     - [이진 트리 반전](#이진-트리-반전)      
     - [정렬된 배열의 이진 탐색 트리 변환](#정렬된-배열의-이진-탐색-트리-변환)    
+- [5.알고리즘](#5-알고리즘)      
+  - [5.3 비트조작](#53-비트조작)
+    - [싱글넘버](#싱글넘버)
+  - [5.4 슬라이딩 윈도우](#54-슬라이딩-윈도우)    
+    - [최대 슬라이딩 윈도우](#최대-슬라이딩-윈도우)
 
 
 ---  
@@ -820,6 +825,198 @@ public class Solution {
 ```
 
 ---  
+
+# 5. 알고리즘  
+
+## 5.3 비트조작  
+
+### 싱글넘버
+
+https://leetcode.com/problems/single-number/
+
+
+**Problem**  
+
+딱 하나를 제외하고 모든 엘리먼트는 2개씩 있다. 1개인 엘리먼트를 찾기
+
+> examples
+
+```
+Input: nums = [2,2,1]
+Output: 1
+```
+
+> e.g2  
+
+```
+Input: nums = [4,1,2,1,2]
+Output: 4
+```  
+
+> e.g3)
+
+```
+Input: nums = [1]
+Output: 1
+```
+
+**Solution**  
+
+1. 해시맵  
+(문제 제약에 추가 메모리 사용하지 않는 제약이 있음)  
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
+public class Solution {    
+    // Runtime: 10 ms, faster than 19.05% of Java online submissions for Single Number.
+    // Memory Usage: 39.9 MB, less than 23.86% of Java online submissions for Single Number.
+    public int solveByMap(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            Integer val = map.get(num);
+            if (val == null) {
+                val = 0;
+            }
+            val++;
+            map.put(num, val);
+        }
+
+        for (Entry<Integer, Integer> entry : map.entrySet()) {
+            if (entry.getValue() == 1) {
+                return entry.getKey();
+            }
+        }
+        throw new RuntimeException("unreachable code");
+    }
+}
+
+```  
+
+2. XOR  
+
+```Java
+// Runtime: 1 ms, faster than 88.71% of Java online submissions for Single Number.
+// Memory Usage: 39 MB, less than 79.99% of Java online submissions for Single Number.
+public int solveByXOR(int[] nums) {
+    int result = 0;
+    for (int num : nums) {
+        result ^= num;
+    }
+    return result;
+}
+```
+
+---  
+
+## 5.4 슬라이딩 윈도우
+
+### 최대 슬라이딩 윈도우
+
+https://leetcode.com/problems/sliding-window-maximum/
+
+
+**Problem**  
+
+배열 nums가 주어졌을 때 k 크기의 슬라이딩 윈도우를 오른쪽 끝까지 이동하면서 최대 슬라이딩  
+윈도우를 구하기
+
+> e.g1  
+
+```
+Input: nums = [1,3,-1,-3,5,3,6,7], k = 3
+Output: [3,3,5,5,6,7]
+Explanation:
+Window position                Max
+---------------               -----
+[1  3  -1] -3  5  3  6  7       3
+ 1 [3  -1  -3] 5  3  6  7       3
+ 1  3 [-1  -3  5] 3  6  7       5
+ 1  3  -1 [-3  5  3] 6  7       5
+ 1  3  -1  -3 [5  3  6] 7       6
+ 1  3  -1  -3  5 [3  6  7]      7
+```
+
+> e.g2  
+
+```
+Input: nums = [1], k = 1
+Output: [1]
+```  
+
+> e.g3)
+
+```
+Input: nums = [9,11], k = 2
+Output: [11]
+```
+
+**Solution**  
+
+1. 브루트 포스로 계산
+
+```Java
+// 	Time Limit Exceeded
+public int[] solveByBruteForce(int[] nums, int k) {
+    int[] answer = new int[nums.length - k + 1];
+    int idx = 0;
+    for (int i = 0; i <= nums.length - k; i++) {
+        int max = nums[i];
+        for (int j = i + 1; j <= i + k - 1; j++) {
+            if (max < nums[j]) {
+                max = nums[j];
+            }
+        }
+        answer[idx++] = max;
+    }
+    return answer;
+}
+```
+
+2. SortedMap을 이용  
+
+```Java
+// Runtime: 309 ms, faster than 10.00% of Java online submissions for Sliding Window Maximum.
+// Memory Usage: 56 MB, less than 25.50% of Java online submissions for Sliding Window Maximum.
+public int[] solveBySortedMap(int[] nums, int k) {
+    int[] answer = new int[nums.length - k + 1];
+    int idx = 0;
+    NavigableMap<Integer, Integer> map = new TreeMap<>();
+    for (int i = 0; i < k; i++) {
+        Integer val = map.get(nums[i]);
+        if (val == null) {
+            val = 0;
+        }
+        map.put(nums[i], val + 1);
+    }
+    answer[idx++] = map.lastKey();
+
+    for (int i = 1; i <= nums.length - k; i++) {
+        // remove left
+        int leftVal = map.get(nums[i - 1]) - 1;
+        if (leftVal == 0) {
+            map.remove(nums[i - 1]);
+        } else {
+            map.put(nums[i - 1], leftVal);
+        }
+
+        // add right
+        Integer rightVal = map.get(nums[i + k - 1]);
+        if (rightVal == null) {
+            rightVal = 0;
+        }
+        map.put(nums[i + k - 1], rightVal + 1);
+        answer[idx++] = map.lastKey();
+    }
+    return answer;
+}
+```
+
+
+
+---
 
 
 <br /><br /><br /><br />

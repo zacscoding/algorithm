@@ -23,7 +23,10 @@
     - [싱글넘버](#싱글넘버)
   - [5.4 슬라이딩 윈도우](#54-슬라이딩-윈도우)    
     - [최대 슬라이딩 윈도우](#최대-슬라이딩-윈도우)
-
+  - [5.5 그리디 알고리즘](#55-그리디-알고리즘)
+    - [주식으로 살고팔기 가장 좋은 시점2](#주식으로-살고팔기-가장-좋은-시점2)     
+  - [5.7 다이나믹 프로그래밍](#57-다이나믹-프로그래밍)  
+    - [최대 서브 배열](#최대-서브-배열)       
 
 ---  
 
@@ -1014,10 +1017,118 @@ public int[] solveBySortedMap(int[] nums, int k) {
 }
 ```
 
+---  
+
+## 5.5 그리디 알고리즘
+
+### 주식으로 살고팔기 가장 좋은 시점2
+
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
 
 
----
+**Problem**  
 
+여러 번의 거래로 낼 수 있는 최대 이익을 산출하라
+
+> e.g1  
+
+```
+Input: [7,1,5,3,6,4]
+Output: 7
+Explanation: Buy on day 2 (price = 1) and sell on day 3 (price = 5), profit = 5-1 = 4.
+             Then buy on day 4 (price = 3) and sell on day 5 (price = 6), profit = 6-3 = 3.
+```
+
+> e.g2  
+
+```
+Input: [1,2,3,4,5]
+Output: 4
+Explanation: Buy on day 1 (price = 1) and sell on day 5 (price = 5), profit = 5-1 = 4.
+             Note that you cannot buy on day 1, buy on day 2 and sell them later, as you are
+             engaging multiple transactions at the same time. You must sell before buying again.
+```  
+
+> e.g3)
+
+```
+Input: [7,6,4,3,1]
+Output: 0
+Explanation: In this case, no transaction is done, i.e. max profit = 0.
+```
+
+**Solution**  
+
+1. 그리디 알고리즘
+(전날과 비교하여 가격이 올랐으면 전날 사고, 당일 팔고)  
+
+```Java
+public int maxProfit(int[] prices) {
+    if (prices.length <= 1) {
+        return 0;
+    }
+    int answer = 0;
+    for (int i = 1; i < prices.length; i++) {
+        if (prices[i] - prices[i - 1] > 0) {
+            answer += prices[i] - prices[i - 1];
+        }
+    }
+    return answer;
+}
+```
+
+---  
+
+
+
+## 5.7 다이나믹 프로그래밍
+
+### 최대 서브 배열
+
+https://leetcode.com/problems/maximum-subarray/
+
+
+**Problem**  
+
+합이 최대가 되는 연속 서브 배열을 찾아 합을 리턴하라.
+
+> e.g1  
+
+```
+Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+Output: 6
+Explanation: [4,-1,2,1] has the largest sum = 6.
+```
+
+> e.g2  
+
+```
+Input: nums = [1]
+Output: 1
+```  
+
+**Solution**  
+
+1. DP1  
+
+DP[i]: i를 포함하면서 a[0]~a[i]까지의 최대 서브 배열  
+=> DP[i] = max(DP[i-1] + a[i], a[i])
+
+```Java
+public int maxSubArray(int[] nums) {
+    int prevSum = nums[0];
+    int max = prevSum;
+    for (int i = 1; i < nums.length; i++) {
+        prevSum = Math.max(prevSum + nums[i], nums[i]);
+        if (max < prevSum) {
+            max = prevSum;
+        }
+    }
+    return max;
+}
+```
+
+---  
 
 <br /><br /><br /><br />
 

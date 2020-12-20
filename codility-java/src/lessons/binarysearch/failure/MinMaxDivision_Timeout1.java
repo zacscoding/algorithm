@@ -1,4 +1,4 @@
-package lessons.binarysearch;
+package lessons.binarysearch.failure;
 
 public class MinMaxDivision_Timeout1 {
     public static void main(String[] args) {
